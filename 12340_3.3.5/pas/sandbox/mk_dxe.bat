@@ -5,3 +5,5 @@ del SandBox.XE.exe
 del SandBox.exe
 \WoWCore\CLI\DXE\bin\dcc32.exe SandBox.dpr
 rename SandBox.exe SandBox.XE.exe
+
+pause

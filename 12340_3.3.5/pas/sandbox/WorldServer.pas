@@ -307,13 +307,20 @@ begin
   i:= msgParse(sender.RBuf, imsg);
   if i <> msg_PARSE_OK then MainLog(NetMsgStr(GetBufOpCode(sender.RBuf))+': ParseResult = ' + ParseResultStr[i]);
 
-  omsg.GUID:= imsg.GUID;
-  omsg.Name:= TWorldUser(World[omsg.GUID].woAddr).CharData.Enum.name;
+  omsg.GUID:=imsg.GUID;
+  omsg.Name:= TWorldUser(World.ObjectByGUID[imsg.GUID].woAddr).CharData.Enum.name;
+
   omsg.GuildName:= '';
-  omsg.raceID:= TWorldUser(World[omsg.GUID].woAddr).CharData.Enum.raceID;
-  omsg.sexID:= TWorldUser(World[omsg.GUID].woAddr).CharData.Enum.sexID;
-  omsg.classID:= TWorldUser(World[omsg.GUID].woAddr).CharData.Enum.classID;
+  omsg.Unk:=0;
+  omsg.raceID:= TWorldUser(World.ObjectByGUID[imsg.GUID].woAddr).CharData.Enum.raceID;
+  omsg.sexID:= TWorldUser(World.ObjectByGUID[imsg.GUID].woAddr).CharData.Enum.sexID;
+  omsg.classID:= TWorldUser(World.ObjectByGUID[imsg.GUID].woAddr).CharData.Enum.classID;
   omsg.LocaleNamesPresent:= 0;
+//  omsg.LocaleName[0]:= omsg.Name;
+//  omsg.LocaleName[1]:= omsg.Name;
+//  omsg.LocaleName[2]:= omsg.Name;
+//  omsg.LocaleName[3]:= omsg.Name;
+//  omsg.LocaleName[4]:= omsg.Name;
   sender.SockSend(msgBuild(sender.SBuf, omsg));
 end;
 procedure cmd_CMSG_QUERY_TIME(var sender: TWorldUser);
@@ -334,6 +341,7 @@ begin
 
   sender.CharData.Selection:= imsg.GUID;
   MainLog('CMSG_SET_SELECTION: Target GUID='+int64tohex(sender.CharData.Selection), 1,0,0);
+
 end;
 procedure cmd_CMSG_AREATRIGGER(var sender: TWorldUser);
 var
@@ -662,7 +670,8 @@ begin
   MainLog('CMSG_CAST_SPELL: spell='+strr(SR.spell_id)+', flags='+IntToHex(SR.target_flags, 4), 1,0,0);
 
   ListWorldUsers.Send_UpdateFromPlayer_SpellStart(SR);
-  sleep(SR.spell_cast_duration); // for actual animation
+  sleep(Random(1500));
+  //sleep(SR.spell_cast_duration); // for actual animation
   ListWorldUsers.Send_UpdateFromPlayer_SpellGo(SR);
 end;
 procedure cmd_CMSG_GOSSIP_SELECT_OPTION(var sender: TWorldUser);

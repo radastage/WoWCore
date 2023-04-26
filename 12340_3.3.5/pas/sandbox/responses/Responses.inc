@@ -288,4 +288,4 @@
   AreaTriggers4 in 'responses\AreaTriggers4.pas', 
   AreaTriggers5 in 'responses\AreaTriggers5.pas', 
   
-
+  Spawn1 in 'responses\Spawn1.pas',

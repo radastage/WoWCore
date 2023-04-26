@@ -1,9 +1,9 @@
 unit Struct;
-
+                                               
 interface
 
 uses
-  TMSGStruct,
+  TMSGStruct, ClassWorld,
   Defines;
 
 type
@@ -218,6 +218,16 @@ type
     procedure Free;
   end;
 
+  TWorldObject = class
+    woGUID: uInt64;
+    woLoc: TLoc;
+    woScaleX: single;
+    woEntry: longint;
+    woDisplayID: longint;
+
+    constructor Create(entry: longint);
+  end;
+
   OGOSSIP_TOOL = object
     procedure Init(var MENU: T_SMSG_GOSSIP_MESSAGE);
     procedure AddGossip(var MENU: T_SMSG_GOSSIP_MESSAGE; var m: GossipMenuRecord);
@@ -282,7 +292,7 @@ begin
 end;
 procedure TCharData.ItemsAdd(bag,slot, entry,count, item_flags: longword);
 begin
-  if slot < 1 then exit;
+//  if slot < 0 then exit;
   if slot > MaxInventorySlot-1 then exit;
   if inventory_bag[0][slot].Entry <> 0 then exit;
 
@@ -294,7 +304,7 @@ begin
   inventory_bag[0][slot].StackCount:= count;
   inventory_bag[0][slot].Flags:= item_flags;
 
-  sleep(20);
+  sleep(1);    //20
 end;
 procedure TCharData.SkillsInit;
 var
@@ -390,7 +400,8 @@ end;
 constructor TWorldUnit.Create(entry: longint);
 begin
 //  woGUID:= GUID_TYPE_UNIT + $10000000000*entry + GetTickCount;
-  woGUID:= GUID_TYPE_UNIT + GetTickCount;
+//  woGUID:= GUID_TYPE_UNIT + GetTickCount;
+  woGUID:= GUID_TYPE_UNIT + World.Count + GetTickCount;
   woLoc.x:=0;
   woLoc.y:=0;
   woLoc.z:=0;
@@ -422,12 +433,14 @@ begin
   unMaxPower[POWER_HAPPINESS]:=1000;
   unMaxPower[POWER_RUNES]:=0;
   unMaxPower[POWER_RUNIC]:=0;
-  unLevel:=1;
+  //unLevel:=1;
+  unLevel:=Random(99)+1;
   // 35 - friend, 21 - hostile
-  if CreatureTPL[entry].Greetings<>'' then
-    unFactionTemplate:=35
-  else
-    unFactionTemplate:=21;
+//  if CreatureTPL[entry].Greetings<>'' then
+//    unFactionTemplate:=35
+//  else
+  //21 for hostile
+  unFactionTemplate:=7;
   unMainhandAttackTime:=2000;
   unOffhandAttackTime:=2000;
   unBoundingRadius:=1.0;
@@ -438,11 +451,29 @@ begin
   unFieldFlags:=0;
   unNPCFlags:=0;
 
-  sleep(100); // pause for next GetTickCount
+  sleep(10); //100
+  // pause for next GetTickCount
 end;
 procedure TWorldUnit.Free;
 begin
   Destroy;
+end;
+
+constructor TWorldObject.Create(entry: longint);
+begin
+//  woGUID:= GUID_TYPE_UNIT + $10000000000*entry + GetTickCount;
+//  woGUID:= GUID_TYPE_UNIT + GetTickCount;
+  woGUID:= GUID_TYPE_GAMEOBJECT + World.Count + GetTickCount;
+  woLoc.x:=0;
+  woLoc.y:=0;
+  woLoc.z:=0;
+  woLoc.facing:=0;
+  woLoc.Map:=0;
+  woScaleX:=1.0;
+  woEntry:=entry;
+
+  sleep(10); //100
+  // pause for next GetTickCount
 end;
 
 procedure OGOSSIP_TOOL.Init(var MENU: T_SMSG_GOSSIP_MESSAGE);

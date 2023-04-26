@@ -130,6 +130,7 @@ type
     WorldUser: TWorldUser;
   end;
 
+
   TListWorldUsers = class
     private
       List: array of WorldUserRecord;
@@ -150,6 +151,7 @@ type
 
       procedure Send_CreateFromUnit(OBJ: TWorldRecord);
       procedure Send_CreateFromPlayer(OBJ: TWorldRecord);
+      procedure Send_CreateFromGameObject(OBJ: TWorldRecord);
 
       procedure Send_UpdateFromPlayer_Move(MR: TMovementRecord);
       procedure Send_UpdateFromPlayer_ForceRunSpeed(guid: uInt64; value: single);
@@ -908,11 +910,15 @@ begin
     upkt.AddLong(    UNIT_FIELD_BASEATTACKTIME+1,  U.unOffhandAttackTime);
     upkt.AddFloat(   UNIT_FIELD_BOUNDINGRADIUS,    U.unBoundingRadius);
     upkt.AddFloat(   UNIT_FIELD_COMBATREACH,       U.unCombatReach);
-    upkt.AddLong(    UNIT_FIELD_DISPLAYID,         CreatureTPL[U.woEntry].DisplayID[0]);
-    upkt.AddLong(    UNIT_FIELD_NATIVEDISPLAYID,   CreatureTPL[U.woEntry].DisplayID[0]);
+    //upkt.AddLong(    UNIT_FIELD_DISPLAYID,         CreatureTPL[U.woEntry].DisplayID[0]);
+    //upkt.AddLong(    UNIT_FIELD_NATIVEDISPLAYID,   CreatureTPL[U.woEntry].DisplayID[0]);
+    upkt.AddLong(    UNIT_FIELD_DISPLAYID,         U.unDisplayID);
+    upkt.AddLong(    UNIT_FIELD_NATIVEDISPLAYID,   U.unNativeDisplayID);
+    if U.undisplayID > 0 then
+
     upkt.AddFloat(   UNIT_MOD_CAST_SPEED,          U.unCastSpeed);
-    if CreatureTPL[U.woEntry].Greetings <> '' then
-      upkt.zAddLong( UNIT_NPC_FLAGS,               UNIT_NPC_FLAG_QUESTGIVER); // simulation
+//    if CreatureTPL[U.woEntry].Greetings <> '' then
+//      upkt.zAddLong( UNIT_NPC_FLAGS,               UNIT_NPC_FLAG_QUESTGIVER); // simulation
     upkt.zAddLong(   UNIT_FIELD_BYTES_2,           U.unFieldBytes2);
 
     upkt.MakeUpdateBlock(@upkt_buf);
@@ -1017,8 +1023,48 @@ begin
   SockSend(pkt.pktLen);
 end;
 procedure TWorldUser.Send_CreateFromGameObject(OBJ: TWorldRecord);
+var
+  upkt: Tupkt;
+  upkt_buf: array[0..65535] of byte;
+  U: TWorldObject;
 begin
+  U:= TWorldObject(OBJ.woAddr);
 
+  pkt.InitCmd(SBuf, SMSG_UPDATE_OBJECT);
+  pkt.AddLong(SBuf, 1);
+  pkt.AddByte(SBuf, 2); // update type full
+
+  pkt.AddGUID(SBuf, U.woGUID);
+  pkt.AddByte(SBuf, WO_GAMEOBJECT);
+
+  pkt.AddWord(SBuf, $60);
+  pkt.AddLong(SBuf, 0);
+  pkt.AddWord(SBuf, 0);
+  pkt.AddLong(SBuf, GetTickCount);
+  
+  pkt.AddFloat(SBuf, U.woLoc.x);
+  pkt.AddFloat(SBuf, U.woLoc.y);
+  pkt.AddFloat(SBuf, U.woLoc.z);
+  pkt.AddFloat(SBuf, U.woLoc.facing);
+
+  pkt.AddLong(SBuf, 0);
+
+  pkt.AddFloat(SBuf, 3.14);
+
+    upkt.Init(UNIT_END);
+    upkt.AddInt64(   OBJECT_FIELD_GUID,            U.woGUID);
+    upkt.AddLong(    OBJECT_FIELD_TYPE,            TYPE_OBJECT);
+    upkt.AddLong(    OBJECT_FIELD_ENTRY,           U.woEntry);
+    upkt.AddFloat(   OBJECT_FIELD_SCALE_X,         U.woScaleX);
+    upkt.AddLong(    GAMEOBJECT_DISPLAYID,         U.woDisplayID);
+    upkt.AddLong(    GAMEOBJECT_LEVEL,             1);
+
+
+    upkt.MakeUpdateBlock(@upkt_buf);
+
+  pkt.AddByte(SBuf, upkt.blocks);
+  pkt.AddArray(SBuf, @upkt_buf, upkt.data_ofs);
+  SockSend(pkt.pktLen);
 end;
 
 procedure TWorldUser.Send_UpdateFromPlayer_Move(MR: TMovementRecord);
@@ -1243,6 +1289,18 @@ var
   omsg2: T_SMSG_NEW_WORLD;
   omsg3: T_MSG_MOVE_TELEPORT_ACK;
 begin
+  if NewMap < 0 then
+  begin
+  NewMap := 0;
+  MainLog(CharData.Enum.name+' tried to teleport to a bugged location. Sending to Eastern Kingdoms instead');
+  end;
+
+  if NewMap > 1000 then
+  begin
+  NewMap := 0;
+  MainLog(CharData.Enum.name+' tried to teleport to a bugged location. Sending to Eastern Kingdoms instead');
+  end;
+
   if NewMap <> CharData.Enum.mapID then
   begin
     // delete from world and other players immediately
@@ -1489,6 +1547,14 @@ begin
   for i:= 0 to World.Count-1 do
     if World.ObjectByIndex[i].woType = WO_PLAYER then
       TWorldUser(World.ObjectByIndex[i].woAddr).Send_CreateFromUnit(OBJ);
+end;
+procedure TListWorldUsers.Send_CreateFromGameObject(OBJ: TWorldRecord);
+var
+  i: longint;
+begin
+  for i:= 0 to World.Count-1 do
+    if World.ObjectByIndex[i].woType = WO_PLAYER then
+      TWorldUser(World.ObjectByIndex[i].woAddr).Send_CreateFromGameObject(OBJ);
 end;
 procedure TListWorldUsers.Send_CreateFromPlayer(OBJ: TWorldRecord);
 var

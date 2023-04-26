@@ -64,8 +64,9 @@ uses
   GameObjects151, GameObjects152, GameObjects153, GameObjects154, GameObjects155, GameObjects156, GameObjects157, GameObjects158, GameObjects159, GameObjects160, 
   GameObjects161, GameObjects162, GameObjects163, GameObjects164, GameObjects165, 
 
-  AreaTriggers1, AreaTriggers2, AreaTriggers3, AreaTriggers4, AreaTriggers5, 
+//  AreaTriggers1, AreaTriggers2, AreaTriggers3, AreaTriggers4, AreaTriggers5,
 
+  Spawn1,
   Logs, Convert;
 
 procedure LoadAllResponses;
@@ -387,11 +388,11 @@ begin
   MainLog('DB: '+strr(c)+' GameObjects loaded ['+strr(b)+'..'+strr(e)+']');
 
   SetLength(AreaTriggerDBC, 5873);
-  LoadAreaTriggers1;
-  LoadAreaTriggers2;
-  LoadAreaTriggers3;
-  LoadAreaTriggers4;
-  LoadAreaTriggers5;
+//  LoadAreaTriggers1;
+//  LoadAreaTriggers2;
+//  LoadAreaTriggers3;
+//  LoadAreaTriggers4;
+//  LoadAreaTriggers5;
   b:= 0; e:= 0; c:= 0;
   for i:= 0 to Length(AreaTriggerDBC)-1 do
     if AreaTriggerDBC[i].Entry <> 0 then
@@ -401,6 +402,8 @@ begin
       e:= i;
     end;
   MainLog('DB: '+strr(c)+' AreaTriggers loaded ['+strr(b)+'..'+strr(e)+']');
+  LoadSpawn1;
+//  MainLog('DB: 1 Spawns loaded ');
 
 end;
 

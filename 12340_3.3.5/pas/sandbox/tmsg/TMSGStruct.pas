@@ -170,6 +170,7 @@ type
     flags: longint;
     flags2: longint; // 3.0.1 (8471_0.4.3)
     restInfo: byte;
+    enum_model: longint;
     petDisplayInfoID: longint;
     petExperienceLevel: longint;
     petCreatureFamilyID: longint;

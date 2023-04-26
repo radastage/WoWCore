@@ -94,8 +94,8 @@ begin
   Application.Title:= 'WoWCore';
   Application.CreateForm(TMainForm, MainForm);
 
-  MainForm.Height:= Ver -24*2 -8;
-  MainForm.Width:= Hor div 2 -8;
+  MainForm.Width := 127;
+  MainForm.Height := 263;
   MainForm.Top:= 5;
   MainForm.Left:= Hor -MainForm.Width -5;
 

@@ -150,52 +150,53 @@ begin
   MainLog('AUTH_LOGON_CHALLENGE ['+s+'] ['+LoginUser.ClientLang+'] ['+strr(LoginUser.ClientBuild)+']');
 
   // check Client Build
-  if vall(UPDATEFIELDS_BUILD) <> LoginUser.ClientBuild then
-  begin
-    MainLog('Version mismatch. Upgrade the SandBox.',1,0,0);
+//  if vall(UPDATEFIELDS_BUILD) <> LoginUser.ClientBuild then
+//  begin
+//    MainLog('Version mismatch. Upgrade the SandBox.',1,0,0);
 
-    LoginUser.SBuf[0]:= AUTH_LOGON_CHALLENGE;
-    LoginUser.SBuf[1]:= 0;
-    LoginUser.SBuf[2]:= AUTH_INVALID_VERSION;
-    LoginUser.SBuf[3]:= 0;
-    LoginUser.SockSend(4);
+//    LoginUser.SBuf[0]:= AUTH_LOGON_CHALLENGE;
+//    LoginUser.SBuf[1]:= 0;
+//    LoginUser.SBuf[2]:= AUTH_INVALID_VERSION;
+//    LoginUser.SBuf[3]:= 0;
+//    LoginUser.SockSend(4);
 
-    exit;
-  end;
+//    exit;
+//  end;
 
   // check Account logged
   // 1 - logon list
-  for i:= 0 to ListLoginUsers.Count-1 do
-  begin
-    if ListLoginUsers.UserByIndex[i].AccountName = s then
-    begin
-      MainLog('['+s+'] Already Logged to Realm', 1,0,0);
+//=====================================================================
+//  for i:= 0 to ListLoginUsers.Count-1 do
+//  begin
+//    if ListLoginUsers.UserByIndex[i].AccountName = s then
+//    begin
+//      MainLog('['+s+'] Already Logged to Realm', 1,0,0);
 
-      LoginUser.SBuf[0]:= AUTH_LOGON_CHALLENGE;
-      LoginUser.SBuf[1]:= 0;
-      LoginUser.SBuf[2]:= AUTH_ALREADY_LOGGED;
-      LoginUser.SBuf[3]:= 0;
-      LoginUser.SockSend(4);
+//      LoginUser.SBuf[0]:= AUTH_LOGON_CHALLENGE;
+//      LoginUser.SBuf[1]:= 0;
+//      LoginUser.SBuf[2]:= AUTH_ALREADY_LOGGED;
+//      LoginUser.SBuf[3]:= 0;
+//      LoginUser.SockSend(4);
 
-      exit;
-    end;
-  end;
+//      exit;
+//    end;
+//  end;
 
   // 2 - world list
-  for i:= 0 to ListWorldUsers.Count-1 do
-    if ListWorldUsers.UserByIndex[i].AccountName = s then
-    begin
-      MainLog('['+s+'] Already Logged to World', 1,0,0);
+//  for i:= 0 to ListWorldUsers.Count-1 do
+//    if ListWorldUsers.UserByIndex[i].AccountName = s then
+//    begin
+//      MainLog('['+s+'] Already Logged to World', 1,0,0);
 
-      LoginUser.SBuf[0]:= AUTH_LOGON_CHALLENGE;
-      LoginUser.SBuf[1]:= 0;
-      LoginUser.SBuf[2]:= AUTH_ALREADY_LOGGED;
-      LoginUser.SBuf[3]:= 0;
-      LoginUser.SockSend(4);
+//      LoginUser.SBuf[0]:= AUTH_LOGON_CHALLENGE;
+//      LoginUser.SBuf[1]:= 0;
+//      LoginUser.SBuf[2]:= AUTH_ALREADY_LOGGED;
+//      LoginUser.SBuf[3]:= 0;
+//      LoginUser.SockSend(4);
 
-      exit;
-    end;
-
+//      exit;
+//    end;
+  //=====================================================================
   LoginUser.AccountName:= s;
 
   LoginUser.Data.Login:= LoginUser.AccountName;
@@ -385,6 +386,8 @@ procedure AuthServer_RealmList(p: pointer);
 var
   i: longint;
   LoginUser: TLoginUser;
+  realmfile: textfile;
+  realmname: string;
 begin
   LoginUser:= TLoginUser(p);
 
@@ -399,7 +402,14 @@ begin
     pktAddByte(LoginUser.SBuf, 0); // role
     pktAddByte(LoginUser.SBuf, 0); // lock
     pktAddByte(LoginUser.SBuf, 0); // status
-    pktAddStr(LoginUser.SBuf, 'WoWCore SandBox 3.3.5a'+#0);
+    {$I-}
+    AssignFile(realmfile, 'realmname.wtf');
+    Reset(realmfile);
+    ReadLn(realmfile, realmname);
+    CloseFile(realmfile);
+    {$I+}
+    MainLog('Reading realmname.wtf; Realm name is '+realmname);
+    pktAddStr(LoginUser.SBuf, realmname+#0);
     pktAddStr(LoginUser.SBuf, REALM_ADDR+':7000'+#0);
     pktAddFloat(LoginUser.SBuf, 0); // load
     pktAddByte(LoginUser.SBuf, 0); // chars

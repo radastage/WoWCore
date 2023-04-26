@@ -677,7 +677,7 @@ begin
   pkt.AddGUID      (Buf, m.GUID);
   pkt.AddByte      (Buf, m.Unk);
   pkt.AddStr       (Buf, m.Name+#0);
-  pkt.AddStr       (Buf, m.GuildName+#0);
+  pkt.AddStr       (Buf, m.GuildName);
   pkt.AddByte      (Buf, m.raceID);
   pkt.AddByte      (Buf, m.sexID);
   pkt.AddByte      (Buf, m.classID);
@@ -685,7 +685,7 @@ begin
   if m.LocaleNamesPresent <> 0 then
   begin
     for i:= 0 to 4 do
-      pkt.AddStr   (Buf, m.LocaleName[i]+#0);
+      pkt.AddStr   (Buf, m.LocaleName[i]);
   end;
   result:= pkt.pktLen;
 end;

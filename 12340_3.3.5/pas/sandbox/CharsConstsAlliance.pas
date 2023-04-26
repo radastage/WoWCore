@@ -652,7 +652,7 @@ begin
   c.power[POWER_HAPPINESS]     := 0;
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
-  c.Enum.experienceLevel       := 55;
+  c.Enum.experienceLevel       := 1;
   c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
@@ -1215,8 +1215,8 @@ begin
   c.max_power[POWER_FOCUS]     := 100;
   c.max_power[POWER_ENERGY]    := 100;
   c.max_power[POWER_HAPPINESS] := 0;
-  c.health                     := 50;
-  c.power[POWER_MANA]          := 50;
+  c.health                     := 53;
+  c.power[POWER_MANA]          := 140;
   c.power[POWER_RAGE]          := 1000;
   c.power[POWER_FOCUS]         := 100;
   c.power[POWER_ENERGY]        := 100;
@@ -1393,7 +1393,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 3;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2900;
@@ -1599,7 +1599,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 3;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2900;
@@ -1788,7 +1788,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 3;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2900;
@@ -1985,7 +1985,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 3;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 1600;
@@ -2179,7 +2179,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 3;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2900;
@@ -2357,8 +2357,8 @@ begin
   c.power[POWER_HAPPINESS]     := 0;
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
-  c.Enum.experienceLevel       := 55;
-  c.faction_template           := 3;
+  c.Enum.experienceLevel       := 1;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2000;
@@ -2577,7 +2577,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 4;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2900;
@@ -2780,7 +2780,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 4;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2900;
@@ -2973,7 +2973,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 4;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 1600;
@@ -3166,7 +3166,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 4;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2900;
@@ -3343,8 +3343,8 @@ begin
   c.power[POWER_HAPPINESS]     := 0;
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
-  c.Enum.experienceLevel       := 55;
-  c.faction_template           := 4;
+  c.Enum.experienceLevel       := 1;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2000;
@@ -3563,7 +3563,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 4;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2900;
@@ -3748,7 +3748,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 115;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2900;
@@ -3949,7 +3949,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 115;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 1600;
@@ -4139,8 +4139,8 @@ begin
   c.power[POWER_HAPPINESS]     := 0;
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
-  c.Enum.experienceLevel       := 55;
-  c.faction_template           := 115;
+  c.Enum.experienceLevel       := 1;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2000;
@@ -4362,7 +4362,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 115;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2900;
@@ -4539,7 +4539,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 115;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2900;
@@ -4719,7 +4719,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 1629;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2900;
@@ -4913,7 +4913,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 1629;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2900;
@@ -5092,7 +5092,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 1629;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2900;
@@ -5281,7 +5281,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 1629;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2900;
@@ -5449,8 +5449,8 @@ begin
   c.power[POWER_HAPPINESS]     := 0;
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
-  c.Enum.experienceLevel       := 55;
-  c.faction_template           := 1629;
+  c.Enum.experienceLevel       := 1;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2000;
@@ -5660,7 +5660,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 1629;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 1900;
@@ -5840,7 +5840,7 @@ begin
   c.power[POWER_RUNES]         := 8;
   c.power[POWER_RUNIC]         := 0;
   c.Enum.experienceLevel       := 1;
-  c.faction_template           := 1629;
+  c.faction_template           := 1;
   c.flags                      := $00000008;
   c.flags2                     := $00000800;
   c.mainhand_attack_time       := 2900;
